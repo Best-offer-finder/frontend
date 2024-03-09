@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { auth } from "../auth";
 import { SessionProvider } from "next-auth/react";
-import Script from "next/script";
 // import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,15 +21,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* Next Auth */}
-        <Script
-          type="text/javascript"
+        {/* Next Auth Google Provider */}
+        <script
+          defer
           src="https://www.gstatic.com/firebasejs/8.0/firebase.js"
-        ></Script>
-        <Script
-          type="text/javascript"
-          src="/static/google-provider.js"
-        ></Script>
+        ></script>
+        <script defer src="/static/google-provider.js"></script>
 
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>

@@ -139,6 +139,17 @@ export const config = {
       if (pathname === "/middleware-example") return !!auth;
       return true;
     },
+    // This is a way to get the id_token if BE would need it in our requests
+    // async jwt({ token, user, account }) {
+    //   if (account) {
+    //     token.id_token = account.id_token
+    //   }
+    //   return token
+    // },
+    // async session({ session, token }) {
+    //   session.id_token = token.id_token
+    //   return session
+    // }
   },
   trustHost: true,
 } satisfies NextAuthConfig;
