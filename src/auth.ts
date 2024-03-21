@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+// import { cookies } from "next/headers";
 
 // import Apple from "next-auth/providers/apple"
 // import Atlassian from "next-auth/providers/atlassian"
@@ -139,17 +140,34 @@ export const config = {
       if (pathname === "/middleware-example") return !!auth;
       return true;
     },
+    async signIn({ account, user, profile, email, credentials }) {
+      console.log("SignIng, id token", account?.id_token);
+      // Call backend url to authorize user with id_token
+      // await fetch("http://localhost:3000/api/auth/authorize", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ id_token: account?.id_token }),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => console.log(data))
+      //   .catch((error) => console.log(error));
+
+      return true;
+    },
     // This is a way to get the id_token if BE would need it in our requests
-    // async jwt({ token, user, account }) {
-    //   if (account) {
-    //     token.id_token = account.id_token
-    //   }
-    //   return token
-    // },
-    // async session({ session, token }) {
-    //   session.id_token = token.id_token
-    //   return session
-    // }
+    async jwt({ token, user, account }) {
+      if (account && account.id_token && token) {
+        token.id_token = account.id_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // @ts-expect-error
+      session.id_token = token.id_token;
+      return session;
+    },
   },
   trustHost: true,
 } satisfies NextAuthConfig;
