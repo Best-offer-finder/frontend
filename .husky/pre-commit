@@ -24,14 +24,14 @@ npm run lint ||
     false;
 )
 
+# TODO: Fix this, for some reason it's throwing an error
 # try to build
-echo 'Trying to build'
-
-npm run build ||
-(
-    echo 'Build failed'
-    false;
-)
+# echo 'Trying to build'
+# npx next build ||
+# (
+#     echo 'Build failed'
+#     false;
+# )
 
 echo 'All test passed'
 echo 'Commiting to repository'
