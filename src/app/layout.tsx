@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { auth } from "../auth";
-import { SessionProvider } from "next-auth/react";
-// import "./globals.css";
+import { ColorSchemeScript } from "@mantine/core";
+import Head from "next/head";
+import Providers from "./layout/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +16,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
   return (
     <html lang="en">
+      <Head>
+        <ColorSchemeScript />
+      </Head>
+
       <body className={inter.className}>
         {/* Next Auth Google Provider */}
         <script
@@ -28,7 +30,7 @@ export default async function RootLayout({
         ></script>
         <script defer src="/static/google-provider.js"></script>
 
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
